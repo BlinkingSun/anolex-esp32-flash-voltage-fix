@@ -287,7 +287,8 @@ def main():
 
         print("\nSAFETY CHECK: this is only correct for ESP32 modules with 3.3 V flash memory.")
         print("The module is the metal-covered square on the board; its name is printed on it.")
-        print("OK markings: ESP32-WROOM-32, -32D, -32E, -32U, -32UE (the AnoleX A-X5.9.2 board uses -32UE).")
+        print("OK markings: ESP32-WROOM-32, -32D, -32U, -32E, -32UE (the AnoleX A-X5.9.2 board uses -32UE).")
+        print("NOT OK: ESP32-WROVER (any), ESP32-S2/S3/C3/C6 modules, or anything not listed. See README.")
         if GUIDED and ask("Does your module carry one of those markings? (Y/N): ").lower() != "y":
             stop("module not confirmed. If unsure, open the controller and read the module label.")
         if not a.yes and ask("Type BURN (capital letters) and press Enter to apply the permanent fix: ") != "BURN":

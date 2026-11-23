@@ -28,12 +28,35 @@ IMPORTANT
 ---------
   - The fix is PERMANENT. It cannot be undone. There is no reason to undo it on a
     3.3 V module, but you should know.
-  - It is only correct for ESP32 modules with 3.3 V memory: ESP32-WROOM-32, -32D,
-    -32E, -32U, -32UE. AnoleX boards use the WROOM-32UE. The module is the square
-    metal-covered part on the board, and its name is printed on it.
+  - It is only correct for ESP32 modules with 3.3 V memory. See "WHICH ESP32
+    MODULES THIS IS FOR" below, and read the label on your module first.
   - It may affect your warranty. Use at your own risk.
   - The tool checks first and only offers the fix if the problem is present
     (or if you confirm your controller has been rebooting at random).
+
+WHICH ESP32 MODULES THIS IS FOR
+-------------------------------
+The ESP32 module is the square, metal-covered part on the controller board. Its
+name is printed on the metal shield (you may need to open the controller case).
+
+  Module label on the shield   Chip the tool shows   Memory    Use this fix?
+  --------------------------   -------------------   -------   ---------------------
+  ESP32-WROOM-32               ESP32-D0WDQ6          3.3 V     YES
+  ESP32-WROOM-32D              ESP32-D0WD            3.3 V     YES
+  ESP32-WROOM-32U              ESP32-D0WD            3.3 V     YES
+  ESP32-WROOM-32E              ESP32-D0WD-V3         3.3 V     YES
+  ESP32-WROOM-32UE             ESP32-D0WD-V3         3.3 V     YES (AnoleX A-X5.9.2 board,
+                                                                    fix verified)
+  ESP32-WROVER (any)           ESP32-D0WD / -V3      some 1.8V NO - do not use
+  ESP32-S2/S3/C3/C6/H2         not an original ESP32  -        NO - tool refuses
+  (e.g. ESP32-S3-WROOM-1)
+  Anything else / unmarked     varies                ?         NO, unless the module's
+                                                               datasheet says 3.3 V flash
+
+  - "U" in the name only means an external antenna connector. It's the same module.
+  - The chip name the tool shows can't tell WROOM from WROVER. Read the label.
+  - The tool also refuses on its own if the fuse is already set, or if the memory
+    chip works normally at 1.8 V (which could mean it is a 1.8 V part).
 
 WHAT YOU NEED
 -------------

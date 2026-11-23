@@ -24,7 +24,24 @@ Signs in a serial log: the ROM banner shows `boot:0x3f` (bit 5 = GPIO12 high), a
 espefuse --chip esp32 --port <PORT> set-flash-voltage 3.3V
 ```
 
-This burns the `XPD_SDIO_FORCE`, `XPD_SDIO_REG` and `XPD_SDIO_TIEH` eFuses, so VDD_SDIO is always 3.3 V and GPIO12 is ignored for the flash supply. Firmware, settings and wiring are not changed. It is **only valid for modules with 3.3 V flash** (ESP32-WROOM-32 / -32D / -32E / -32U / -32UE).
+This burns the `XPD_SDIO_FORCE`, `XPD_SDIO_REG` and `XPD_SDIO_TIEH` eFuses, so VDD_SDIO is always 3.3 V and GPIO12 is ignored for the flash supply. Firmware, settings and wiring are not changed. It is **only valid for modules with 3.3 V flash**: see [Which ESP32 modules this is for](#which-esp32-modules-this-is-for).
+
+## Which ESP32 modules this is for
+
+The ESP32 module is the square, metal-shielded part on the controller board, and its name is printed on the shield. **Read the label before applying the fix.** The chip name the tool reports can't tell a WROOM from a WROVER.
+
+| Module (label on the shield) | Chip the tool reports | Flash voltage | Use this fix? |
+|---|---|---|---|
+| ESP32-WROOM-32 | ESP32-D0WDQ6 | 3.3 V | Yes |
+| ESP32-WROOM-32D | ESP32-D0WD | 3.3 V | Yes |
+| ESP32-WROOM-32U | ESP32-D0WD | 3.3 V | Yes |
+| ESP32-WROOM-32E | ESP32-D0WD-V3 | 3.3 V | Yes |
+| **ESP32-WROOM-32UE** | ESP32-D0WD-V3 | 3.3 V | **Yes. This is the module on the AnoleX A-X5.9.2 board, where the fix was verified.** |
+| ESP32-WROVER (any variant) | ESP32-D0WD / -V3 | some variants 1.8 V | **No.** Not covered by this tool. |
+| ESP32-S2 / S3 / C3 / C6 / H2 modules (e.g. ESP32-S3-WROOM-1) | not an original ESP32 | n/a | **No.** Different chip family; the tool refuses. |
+| Anything else (PICO, SOLO, MINI, clones, unmarked) | varies | check the datasheet | **Only** if the module's datasheet says its flash is 3.3 V |
+
+"U" in a module name means an external-antenna connector; electrically it's the same module. The tool also refuses to burn if the eFuse is already set, or if the flash answers normally at 1.8 V.
 
 ## Quick start
 
